@@ -1,0 +1,27 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+    <h1 class="mb-3">Record list</h1>
+    <div class="flex justify-between mb-2">
+        <a class="text-xl font-medium align-middle" href="{{ path('admin_dashboard') }}">
+            <i class="fa-solid fa-chevron-left"></i>
+            Dashboard
+        </a>
+    </div>
+    <div class="w-full overflow-x-auto space-y-2 rounded-sm">
+		<div class="inline-flex min-w-full bg-amber-300 rounded-sm p-3 text-neutral-900 font-medium">
+			<div class="w-32 shrink-0"></div>
+			<div class="w-64 shrink-0">Date</div>
+			<div class="w-64 shrink-0">Entries</div>
+			<div class="w-64 shrink-0">Hidden</div>
+		</div>
+        {% for group in records %}
+			<a class="inline-flex min-w-full panel panel-hover p-0">
+				<div class="w-32 shrink-0 whitespace-nowrap truncate p-3">{{ include('record/group/_hide_form.html.twig') }}</div>
+				<div class="w-64 shrink-0 whitespace-nowrap truncate p-3">{{ group.date|date("d/m/Y") }}</div>
+				<div class="w-64 shrink-0 whitespace-nowrap truncate p-3">{{ group.count }}</div>
+				<div class="w-64 shrink-0 whitespace-nowrap truncate p-3">{{ group.hidden ? 'Yes' : 'No' }}</div>
+			</a>
+        {% endfor %}
+    </div>
+{% endblock %}

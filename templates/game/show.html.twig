@@ -1,0 +1,17 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+    <h1>Game #{{ game.id }}: {{ game.name }}</h1>
+    <div id="twitch-game-result" class="frame frame-light show">
+        <div class="wrapper">
+            <img src="{{ game.image|replace({'{width}': '75', '{height}': '100'}) }}">
+            <div id="twitch-game-result-info">
+                <span id="twitch-game-result-info-title">
+                    <i class="fab fa-twitch"></i>
+                    {{ game.name }}
+                </span>
+                <span id="twitch-game-result-info-id">{{ game.twitchId }}</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

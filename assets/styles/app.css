@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	h1 {
+		@apply text-4xl sm:text-5xl font-semibold;
+	}
+	h2 {
+		@apply text-3xl sm:text-4xl font-semibold;
+	}
+	h3 {
+		@apply text-2xl sm:text-3xl font-semibold;
+	}
+	h4 {
+		@apply text-xl sm:text-2xl font-semibold;
+	}
+	h5 {
+		@apply text-lg sm:text-xl font-semibold;
+	}
+	h6 {
+		@apply text-base font-semibold;
+	}
+	a {
+		@apply inline-block;
+	}
+	a:not(.button):not(.bg-amber-300) {
+		@apply hover:text-amber-300 transition duration-100;
+	}
+	
+	input[type=text],
+	input[type=password],
+	input[type=email],
+	input[type=checkbox],
+	select {
+		@apply focus:ring-0 focus:outline-0 focus:ring-offset-0;
+	}
+	input[type=text],
+	input[type=password],
+	input[type=email],
+	select {
+		@apply bg-neutral-800 rounded-sm px-3 py-2 placeholder:text-neutral-500 outline-0 transition ease-in-out duration-150 border border-amber-300/0 focus:bg-neutral-800 focus:border-amber-300
+	}
+	.panel input[type=text],
+	.panel input[type=password],
+	.panel input[type=email],
+	.panel select {
+		@apply bg-neutral-750
+	}
+	button, .button {
+		@apply text-neutral-900 bg-amber-300 px-3 py-2 rounded-sm font-medium whitespace-nowrap
+	}
+	.button-off {
+		@apply button text-white bg-neutral-800
+	}
+	.tooltip-parent {
+		@apply relative
+	}
+	.tooltip {
+		@apply absolute bottom-full left-1/2 -translate-x-1/2 -translate-y-2 hidden rounded-sm p-2 text-white bg-neutral-700 shadow whitespace-normal
+	}
+
+	.panel {
+		@apply bg-neutral-800 rounded p-3 transition ease-in-out duration-150 shadow-md
+	}
+	.panel-hover {
+		@apply border border-amber-300/0 hover:bg-neutral-800 hover:border-amber-300
+	}
+	.text-page h1,
+	.text-page h2,
+	.text-page h3 {
+		@apply mb-3 mt-8
+	}
+	.text-page p {
+		@apply text-justify mb-3
+	}
+	.text-page ul {
+		@apply ml-6
+	}
+	.text-page li {
+		@apply mb-1 list-disc
+	}
+	.text-page a {
+		@apply text-amber-300
+	}
+	.checkbox {
+		@apply w-5 h-5 rounded border-none cursor-pointer text-amber-300 bg-neutral-750
+	}
+	.checkbox:checked {
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M470.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L192 338.7 425.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>');
+		background-size: 70%;
+	}
+}
+
+.flex-row-reverse{
+	flex-direction: row-reverse;
+}
+.flex-col-reverse{
+	flex-direction: column-reverse;
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.order-first {
+	order: -9999;
+}
+.no-scroll{
+	overflow-y: hidden;
+}

@@ -1,0 +1,13 @@
+{{ form_start(form, {'name': form_name, 'attr': {'class': 'flex flex-col space-y-2'}}) }}
+	{{ form_widget(form.name) }}
+	{{ form_widget(form.type) }}
+	<div class="flex items-center">
+		{{ form_widget(form.hidden, {
+			'attr': {
+				'class': 'checkbox mr-2',
+			}
+		}) }}
+		{{ form_label(form.hidden) }}
+	</div>
+	<button>{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

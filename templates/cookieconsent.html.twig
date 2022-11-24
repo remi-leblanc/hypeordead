@@ -1,0 +1,21 @@
+<div class="fixed bottom-3 left-3 w-80 panel p-6" {{ stimulus_controller('ajax modal') }} {{ stimulus_target('modal', 'modal') }}>
+	<h3 class="mb-3">Manage cookies</h3>
+	<p class="text-xs mb-2">We use cookies to optimize our website and our services. Read our <a class="text-amber-300" href="{{ path('privacypolicy') }}">Privacy Policy</a> to learn more.</p>
+	<p class="text-xs mb-3">Select below which types of cookies you want to allow:</p>
+	{{ form_start(form, {'attr': {'class': 'flex flex-col gap-y-1', 'data-action': 'ajax#send'}}) }}
+		<div class="flex items-center">
+			{{ form_widget(form.analytics, {'attr': {'class': 'checkbox mr-3' }}) }}
+			{{ form_label(form.analytics, 'Analytics', {'label_attr': {'class': 'select-none' }}) }}
+		</div>
+		<div class="flex items-center">
+			{{ form_widget(form.ads, {'attr': {'class': 'checkbox mr-3' }}) }}
+			{{ form_label(form.ads, 'Personalized Ads', {'label_attr': {'class': 'select-none' }}) }}
+		</div>
+
+		<div class="flex gap-x-2 mt-3">
+			{{ form_widget(form.deny, {'label': 'Deny', 'attr': {'class': 'button-off bg-neutral-750', 'data-action': 'modal#close'}}) }}
+			{{ form_widget(form.save, {'label': 'Save', 'attr': {'class': 'button', 'data-action': 'modal#close'}}) }}
+		</div>
+	{{ form_end(form) }}
+</div>
+

@@ -1,0 +1,16 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+    <h1 class="mb-3">Search game to add</h1>
+	<div class="mb-2">
+        <a class="text-xl font-medium align-middle" href="{{ path('game_index') }}">
+            <i class="fa-solid fa-chevron-left text-base"></i>
+            List
+        </a>
+    </div>
+		{{ form_start(form, {'attr': {'class': 'flex flex-col space-y-2'}}) }}
+			{{ form_widget(form.name) }}
+			{{ form_widget(form.submit, {'attr': {'class': 'text-white bg-twitch'}}) }}
+		{{ form_end(form) }}
+    
+{% endblock %}

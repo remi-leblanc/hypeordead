@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html id="page-{% block page_id %}{% endblock %}">
+	<head>
+		{% block head %}
+			<title>HypeOrDead - The real multiplayer games ranking website</title>
+			<meta name="description" content="HypeOrDead is a popularity ranking of online multiplayer games which helps you to choose the best game for you and your friends.">
+		{% endblock %}
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon.png') }}">
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8127264588336461" crossorigin="anonymous"></script>
+		<script>
+			(adsbygoogle=window.adsbygoogle||[]).requestNonPersonalizedAds=1;
+			(adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1;
+		</script>
+		{{ encore_entry_link_tags('app') }}
+	</head>
+	<body class="flex flex-col bg-neutral-900 text-neutral-50 pt-16 min-h-screen">
+		<nav class="fixed top-0 w-full bg-neutral-800/90 backdrop-blur-xl shadow-md z-30" {{ stimulus_controller('modal') }}>
+			<div class="max-w-5xl mx-auto px-2 sm:px-6 lg:px-8">
+				<div class="relative flex items-center justify-between h-16">
+					<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+						<button
+							type="button"
+							class="flex items-center justify-center h-10 w-10 rounded-sm hover:bg-amber-300/10 text-white"
+							aria-controls="mobile-menu"
+							aria-expanded="false"
+							{{ stimulus_action('modal', 'toggle') }}
+						>
+							<i class="fa-solid fa-bars text-xl" {{ stimulus_target('modal', 'btnOpen') }}></i>
+							<i class="fa-solid fa-xmark text-xl hidden" {{ stimulus_target('modal', 'btnClose') }}></i>
+						</button>
+					</div>
+					<div class="flex-1 flex items-center justify-center sm:items-center sm:justify-between">
+						<a class="flex flex-col items-center sm:items-start" href="{{ path('home') }}">
+							<h1 class="font-bold text-3xl text-amber-300">HypeOrDead</h1>
+						</a>
+						<div class="hidden sm:flex flex-1 justify-end sm:ml-6">
+							<div class="space-x-2">
+								<a href="https://twitter.com/remileblanc_dev" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+								<a href="https://github.com/remi-leblanc" target="_blank"><i class="fa-brands fa-github"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hidden sm:hidden" {{ stimulus_target('modal', 'modal') }}>
+				<div class="flex flex-col px-2 pt-2 pb-3 space-y-1">
+					<a href="{{ path('home') }}" class="text-xl px-3 py-2 rounded-sm font-medium">Ranking</a>
+				</div>
+			</div>
+		</nav>
+
+		<div class="flex justify-center">
+			<!-- Google AdSense Left -->
+			<div class="w-0 2xl:w-56">
+				<ins class="adsbygoogle"
+					style="display:block"
+					data-ad-client="ca-pub-8127264588336461"
+					data-ad-slot="1034902303"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					data-adtest="on"
+					data-ad-test="on"></ins>
+				<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
+
+			<div class="flex flex-col flex-1 w-full max-w-5xl px-2 py-8 sm:px-6 lg:px-8">
+				{% block body %}{% endblock %}
+			</div>
+
+			<!-- Google AdSense Right -->
+			<div class="w-0 2xl:w-56">
+				<ins class="adsbygoogle"
+					style="display:block"
+					data-ad-client="ca-pub-8127264588336461"
+					data-ad-slot="8147105560"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
+					data-adtest="on"
+					data-ad-test="on"></ins>
+				<script>
+					(adsbygoogle = window.adsbygoogle || []).push({});
+				</script>
+			</div>
+		</div>
+		
+		<footer class="text-center pt-10 pb-5 text-neutral-600">
+			<p class="font-bold text-4xl mb-3">HypeOrDead</p>
+			<p class="font-bold text-sm mb-1">Made by <a class="text-amber-300" href="https://remileblanc.fr" target="_blank">Rémi Leblanc</a></p>
+			<div class="space-x-2">
+				<a href="https://twitter.com/remileblanc_dev" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+				<a href="https://github.com/remi-leblanc" target="_blank"><i class="fa-brands fa-github"></i></a>
+			</div>
+			<div class="row">
+				<a href="{{ path('privacypolicy') }}">Privacy Policy</a>
+			</div>
+		</footer>
+		{% block ui %}{% endblock %}
+
+		{% if not app.request.cookies.get('hodCookieConsentKey') %}
+			{{ render(path('cookieconsent_record')) }}
+		{% endif %}
+		
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-S5LXZR9PFT"></script>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</body>
+</html>

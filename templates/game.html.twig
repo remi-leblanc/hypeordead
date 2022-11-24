@@ -1,0 +1,118 @@
+{% extends "base.html.twig" %}
+
+{% block page_id %}game{% endblock %}
+
+{% block head %}
+	<title>HypeOrDead - {{ game.infos.name }} ranking and stats</title>
+	<meta name="description" content="Find a lot of stats, progression and details about {{ game.infos.name }} on HypeOrDead, the real multiplayer games ranking website.">
+{% endblock %}
+
+{% block body %}
+
+	<h1 class="mb-5">Game stats details</h1>
+	<div class="panel flex mb-2">
+		<img class="mr-2" src="{{ game.infos.image|replace({'{width}': '120', '{height}': '160'}) }}">
+		<div class="flex flex-col items-start gap-y-2">
+			<h2>{{ game.infos.name }}</h2>
+			<div class="flex flex-wrap whitespace-nowrap gap-1">
+				{% for tag in game.infos.tags %}
+					<span class="rounded-full bg-neutral-700 text-xs px-2 py-0.5">{{ tag.name }}</span>
+				{% endfor %}
+			</div>
+			{% if mainLanguageCode != "false" %}
+				<span class="tooltip-parent flex items-center leading-none bg-neutral-700 p-2 rounded-sm text-xs font-bold group cursor-default">
+					<img class="h-4 mr-2 rounded-sm" src="https://unpkg.com/language-icons/icons/{{ game.mainLanguageCode }}.svg">{{ game.mainLanguageName }} community
+					<span class="tooltip w-full group-hover:block font-normal">
+						At least 75% of all streams on Twitch were in {{ game.mainLanguageName }}.
+					</span>
+				</span>
+			{% endif %}
+{# 				<div class="frame-float row">
+				<a class="frame frame-small frame-twitch" href="https://www.twitch.tv/directory/game/{{ game.infos.name }}" target="_blank"><i class="fab fa-twitch"></i>{{ game.infos.name }}</a>
+			</div>
+			<div class="frame-float row">
+				{% for sub in game.infos.subredditName %}
+					<a class="frame frame-small frame-reddit" href="https://www.reddit.com/r/{{ sub }}" target="_blank"><i class="fab fa-reddit"></i>r/{{ sub }}</a>
+				{% endfor %}
+			</div>
+			<div class="frame-float row">
+				{% if game.infos.discordId|length >= 1 %}
+					<a class="frame frame-small frame-discord" href="https://discord.com/guild-discovery" target="_blank"><i class="fab fa-discord"></i>Discord</a>
+				{% endif %}
+			</div> #}
+		</div>
+	</div>
+	<div class="panel flex flex-wrap justify-between mb-2">
+		<div class="basis-1/2 sm:basis-auto mb-3 sm:mb-0">
+			<h6>Rank</h6>
+			<span class="text-4xl font-bold">#{{ game.currRank }}</span>
+		</div>
+		<div class="basis-1/2 sm:basis-auto mb-3 sm:mb-0">
+			<h6>Current score</h6>
+			<span class="bg-amber-300 rounded px-2 text-neutral-900 text-3xl">{{ game.currScore|number_format(0, ',', ' ') }}</span>
+		</div>
+		<div class="basis-1/2 sm:basis-auto">
+			<h6>Last week's score</h6>
+			{% if game.prevScore is defined %}
+				<span class="text-amber-300 text-4xl">{{ game.prevScore|number_format(0, ',', ' ') }}</span>
+			{% else %}
+				<span class="text-amber-300 text-4xl">N/A</span>
+			{% endif %}
+		</div>
+		<div class="basis-1/2 sm:basis-auto">
+			<h6>Score progression</h6>
+			{% if game.scoreDiff is defined %}
+				{% if game.scoreDiff|abs == game.scoreDiff %}
+					<span class="text-green-600 text-4xl">
+						+{{ game.scoreDiff }}%
+					</span>
+				{% else %}
+					<span class="text-red-500 text-4xl">
+						{{ game.scoreDiff }}%
+					</span>
+				{% endif %}
+			{% else %}
+				<span class="text-4xl">N/A</span>
+			{% endif %}
+		</div>
+	</div>
+	<div class="panel mb-2">
+		{{ render_chart(chart) }}
+	</div>
+	<div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+		<div class="bg-twitch rounded w-full p-3">
+			<h5 class="align-middle mb-3"><i class="fa-brands fa-twitch text-base mr-2"></i>Twitch</h5>
+			<div class="mb-3">
+				<h6 class="leading-none">Average viewers</h6>
+				<span class="text-2xl">{{ lastRecord.twitchViewersWeek|number_format(0, '.', ',') }}</span>
+			</div>
+			<div>
+				<h6 class="leading-none">Game's followers</h6>
+				<span class="text-2xl">{{ lastRecord.twitchFollowers|number_format(0, '.', ',') }}</span>
+			</div>
+		</div>
+		<div class="bg-reddit rounded w-full p-3">
+			<h5 class="align-middle mb-3"><i class="fa-brands fa-reddit text-base mr-2"></i>Reddit</h5>
+			<div class="mb-3">
+				<h6 class="leading-none">Average online members</h6>
+				<span class="text-2xl">{{ lastRecord.redditOnlineWeek|number_format(0, '.', ',') }}</span>
+			</div>
+			<div>
+				<h6 class="leading-none">Total members</h6>
+				<span class="text-2xl">{{ lastRecord.redditTotalMembers|number_format(0, '.', ',') }}</span>
+			</div>
+		</div>
+		<div class="bg-discord rounded w-full p-3">
+			<h5 class="align-middle mb-3"><i class="fa-brands fa-discord text-base mr-2"></i>Discord</h5>
+			<div class="mb-3">
+				<h6 class="leading-none">Average online members</h6>
+				<span class="text-2xl">{{ lastRecord.discordOnlineWeek|number_format(0, '.', ',') }}</span>
+			</div>
+			<div>
+				<h6 class="leading-none">Total members</h6>
+				<span class="text-2xl">{{ lastRecord.discordTotalMembers|number_format(0, '.', ',') }}</span>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

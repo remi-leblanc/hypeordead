@@ -1,0 +1,37 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+    <h1 class="mb-3">Game list</h1>
+    <div class="flex justify-between mb-2">
+        <a class="text-xl font-medium align-middle" href="{{ path('admin_dashboard') }}">
+            <i class="fa-solid fa-chevron-left"></i>
+            Dashboard
+        </a>
+        <a class="text-xl font-medium align-middle" href="{{ path('game_new') }}">
+			Ajouter
+            <i class="fas fa-plus-circle"></i>
+        </a>
+    </div>
+    <div class="w-full overflow-x-auto space-y-2 rounded-sm">
+		<div class="inline-flex min-w-full bg-amber-300 rounded-sm p-3 text-neutral-900 font-medium">
+			<div class="w-64 shrink-0">Name</div>
+			<div class="w-64 shrink-0">Tags</div>
+			<div class="w-64 shrink-0">Subreddit Names</div>
+			<div class="w-64 shrink-0">Discord ID</div>
+			<div class="w-64 shrink-0">Twitch ID</div>
+		</div>
+        {% for game in games %}
+			<a class="inline-flex items-center panel panel-hover p-0" href="{{ path('game_edit', {'id': game.id}) }}">
+				<div class="w-64 shrink-0 whitespace-nowrap truncate p-3">{{ game.name }}</div>
+				<div class="w-64 shrink-0 flex flex-wrap whitespace-nowrap gap-1 p-1">
+					{% for tag in game.tags %}
+						<span class="rounded-full bg-neutral-700 text-xs px-2 py-0.5">{{ tag.name }}</span>
+					{% endfor %}
+				</div>
+				<div class="w-64 shrink-0 whitespace-nowrap truncate p-3">{{ game.subredditName|join(', ') }}</div>
+				<div class="w-64 shrink-0 whitespace-nowrap truncate p-3">{{ game.discordId|join(', ') }}</div>
+				<div class="w-64 shrink-0 whitespace-nowrap truncate p-3">{{ game.twitchId }}</div>
+			</a>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{{ form_start(form, {'name': form_name, 'attr': {
+	'class': 'panel flex flex-col space-y-2',
+	'data-controller': 'tag'
+}}) }}
+	{% embed "tagSelect.html.twig" with {'name': 'tags', 'tags': tags} %}{% endembed %}
+	{{ form_widget(form.tags, { 'attr': {'class': 'hidden', 'data-tag-target': 'form'}}) }}
+	{{ form_widget(form.subredditName) }}
+	{{ form_widget(form.discordId) }}
+	<button>{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

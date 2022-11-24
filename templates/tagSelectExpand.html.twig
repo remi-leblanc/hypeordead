@@ -1,0 +1,16 @@
+<input type="text" placeholder="Search tags" class="w-full" {{ stimulus_target('tag', 'search') }} {{ stimulus_action('tag', 'search') }} /> 
+<div class="flex flex-col h-64 bg-neutral-800 rounded py-2 overflow-y-scroll no-scrollbar">
+	{% for checkbox in form.tags.children %}
+		<div class="flex items-center px-3" {{ stimulus_target('tag', 'option') }} tag-value="{{ checkbox.vars.label }}">
+			{{ form_widget(checkbox, {
+				'attr': {
+					'class': 'checkbox mr-2',
+					'data-action': 'change->tag#select ajax#send',
+					'data-tag-target': 'checkbox',
+					'tag-value': checkbox.vars.label
+				}
+			}) }}
+			{{ form_label(checkbox) }}
+		</div>
+	{% endfor %}
+</div>

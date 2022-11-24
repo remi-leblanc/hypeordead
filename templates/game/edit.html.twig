@@ -1,0 +1,26 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+	<h1 class="mb-3">Game #{{ game.id }}: {{ game.name }}</h1>
+	<div class="mb-2">
+		<a class="text-xl font-medium align-middle" href="{{ path('game_index') }}">
+			<i class="fa-solid fa-chevron-left text-base"></i>
+			List
+		</a>
+	</div>
+
+	<div class="panel flex space-x-2 mb-2">
+		<img src="{{ game.image|replace({'{width}': '75', '{height}': '100'}) }}">
+		<div class="wrapper">
+			<h2 class="align-middle">
+				<i class="fa-brands fa-twitch"></i>
+				{{ game.name }}
+			</h2>
+			<h4>{{ game.twitchId }}</h4>
+		</div>
+	</div>
+	<div class="flex flex-col space-y-2">
+		{{ include('game/_form.html.twig', {'button_label': 'Update', 'form_name': 'game_edit'}) }}
+		{{ include('game/_delete_form.html.twig') }}
+	</div>
+{% endblock %}

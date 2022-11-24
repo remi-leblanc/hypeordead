@@ -1,0 +1,29 @@
+<div class="flex flex-col bg-neutral-750" {{ stimulus_target('tag', 'group') }}>
+	<input class="w-full" type="text" placeholder="Search {{ name }}" {{ stimulus_action('tag', 'search') }} {{ stimulus_target('tag', 'search') }}>
+	<div class="flex flex-wrap gap-1 px-1 my-1">
+		{% for tag in tags %}
+			<span 
+				class="{% if game is defined %}{% if tag not in game.tags %}hidden{% endif %}{% else %}hidden{% endif %} rounded-full bg-neutral-600 text-xs cursor-pointer select-none px-2 py-0.5"
+				tag-value="{{ tag.id }}"
+				{{ stimulus_action('tag', 'remove', 'click') }}
+				{{ stimulus_target('tag', 'selected') }}
+			>
+				{{ tag.name }}
+			</span>
+		{% endfor %}
+	</div>
+	<div class="relative">
+		<div class="flex flex-col overflow-y-scroll no-scrollbar w-full h-64 bg-neutral-700 rounded-sm py-1">
+			{% for tag in tags %}
+				<span 
+					class="{% if game is defined and tag in game.tags %}hidden{% endif %} text-sm px-2 py-1 cursor-pointer select-none hover:bg-neutral-600" 
+					tag-value="{{ tag.id }}"
+					{{ stimulus_action('tag', 'select', 'click') }}
+					{{ stimulus_target('tag', 'option') }}
+				>
+					{{ tag.name }}
+				</span>
+			{% endfor %}
+		</div>
+	</div>
+</div>

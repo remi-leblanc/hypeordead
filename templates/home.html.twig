@@ -1,0 +1,91 @@
+{% extends "base.html.twig" %}
+
+{% block page_id %}home{% endblock %}
+
+{% block body %}
+	<div class="flex  mb-28">
+		<div class="text-center md:text-left">
+			<h2 class="text-4xl md:text-6xl md:pr-8 lg:text-7xl !leading-tight font-extrabold mb-10">The real multiplayer games ranking website</h2>
+			<h3 class="text-lg font-light md:text-2xl !leading-loose md:pr-16 mb-8">Dynamically calculated using data from huge websites/services like Reddit, Discord and Twitch.</h3>
+			<div class="flex justify-center md:justify-start gap-x-2">
+				<a class="button-off bg-neutral-750 text-sm" href="mailto:remileblanc.dev@gmail.com"><i class="fa-solid fa-envelope"></i> Contact me</a>
+				<a class="button text-sm" target="_blank" href="https://ko-fi.com/remileblanc"><i class="fa-solid fa-circle-dollar-to-slot"></i> Donate</a>
+			</div>
+		</div>
+		<div class="relative overflow-hidden panel w-full p-0 cursor-pointer group" {{ stimulus_controller('video') }} data-action="click->video#toggleAudio">
+			<div class="absolute inset-0 flex flex-col justify-center items-center text-xl font-bold opacity-0 group-hover:opacity-100 p-8 z-10">
+				Click to turn on/off audio
+				<i class="fa-solid fa-volume-high"></i>
+			</div>
+			<video {{ stimulus_target('video', 'video') }}
+				width="360" height="640"
+				class="hidden md:block max-w-none group-hover:blur-2xl transition duration-100"
+				autoplay muted loop>
+				<source src="{{ asset('images/tiktok_sm.mp4') }}" type='video/mp4'>
+			</video>
+		</div>
+	</div>
+	<div class="relative flex md:gap-x-2" {{ stimulus_controller('ajax tag') }}>
+		<div class="hidden md:block">
+			<div class="panel w-52 sticky top-20">
+				{{ form_start(filtersForm, { 'attr': {'class': 'flex flex-col gap-y-3'}}) }}
+					{{ form_widget(filtersForm.name, { 'attr': {'class': 'w-full', 'placeholder': 'Search by name', 'data-action': 'ajax#send', 'autocomplete': 'off'}}) }}
+
+					{% embed "tagSelect.html.twig" with {'name': 'tags', 'tags': tags} %}{% endembed %}
+					{% embed "tagSelect.html.twig" with {'name': 'platforms', 'tags': platforms} %}{% endembed %}
+
+					{{ form_widget(filtersForm.tags, { 'attr': {'class': 'hidden', 'data-tag-target': 'form', 'data-action': 'ajax#send'}}) }}
+
+					<div class="text-xs">
+						<span>Order by</span>
+						{{ form_widget(filtersForm.order, { 'attr': {'class': 'w-full', 'data-action': 'ajax#send'}}) }}
+					</div>
+					
+				{{ form_end(filtersForm) }}
+			</div>
+		</div>
+		
+		<div class="relative w-full">
+			<div class="absolute top-0 -translate-y-full flex justify-between items-end w-full pb-3">
+				<h4 class="text-base sm:text-lg">Weekly ranking</h4>
+				<h4 class="text-base sm:text-lg">from {{ weekDate|date("d/m/Y") }}</h4>
+			</div>
+			<div {{ stimulus_target('ajax', 'output') }}>
+				{{ include('ranking.html.twig') }}
+			</div>
+			<svg class="hidden mt-16 mx-auto w-8 h-8 animate-spin dark:text-neutral-600 fill-amber-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg" {{ stimulus_target('ajax', 'loader') }}>
+				<path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+				<path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+			</svg>
+		</div>
+
+		<div class="md:hidden" {{ stimulus_controller('modal') }}>
+			<div class="fixed inset-0 pt-20 hidden overflow-y-scroll bg-neutral-900/75 px-6 py-16" {{ stimulus_target('modal', 'modal') }}>
+				<div class="panel w-full">
+					{{ form_start(modalFiltersForm, { 'attr': {'class': 'flex flex-col gap-y-3'}}) }}
+						{{ form_widget(modalFiltersForm.name, { 'attr': {'class': 'w-full', 'placeholder': 'Search by name', 'data-action': 'ajax#send', 'autocomplete': 'off'}}) }}
+
+						{% embed "tagSelect.html.twig" with {'name': 'tags', 'tags': tags} %}{% endembed %}
+						{% embed "tagSelect.html.twig" with {'name': 'platforms', 'tags': platforms} %}{% endembed %}
+
+						{{ form_widget(modalFiltersForm.tags, { 'attr': {'class': 'hidden', 'data-tag-target': 'form', 'data-action': 'ajax#send'}}) }}
+
+						<div class="text-xs">
+							<span>Order by</span>
+							{{ form_widget(modalFiltersForm.order, { 'attr': {'class': 'w-full', 'data-action': 'ajax#send'}}) }}
+						</div>
+						
+					{{ form_end(modalFiltersForm) }}
+				</div>
+
+			</div>
+			<div class="fixed flex justify-center items-center h-12 w-12 bottom-3 right-3 bg-amber-300 rounded-full text-neutral-800 cursor-pointer z-50" {{ stimulus_action('modal', 'toggle', 'click') }}>
+				<i class="fa-solid fa-filter" {{ stimulus_target('modal', 'btnOpen') }}></i>
+				<i class="fa-solid fa-xmark hidden text-xl" {{ stimulus_target('modal', 'btnClose') }}></i>
+			</div>
+		</div>
+
+	</div>
+
+
+{% endblock %}

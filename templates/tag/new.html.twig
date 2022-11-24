@@ -1,0 +1,13 @@
+{% extends 'adminBase.html.twig' %}
+
+{% block body %}
+	<h1 class="mb-3">Add new tag</h1>
+	<div class="mb-2">
+		<a class="text-xl font-medium align-middle" href="{{ path('tag_index') }}">
+			<i class="fa-solid fa-chevron-left text-base"></i>
+			List
+		</a>
+	</div>
+	{{ include('tag/_form.html.twig', {'button_label': 'Create', 'form_name': 'tag_new'}) }}
+
+{% endblock %}

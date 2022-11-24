@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('record_group_hide', {'date': group.date|date("Y-m-d") }) }}" class="flex flex-col" onsubmit="return confirm('Are you sure you want to hide this item?');">
+    <input type="hidden" name="_method" value="Toggle Hidden">
+    <button><i class="fa-solid fa-eye-slash"></i></button>
+</form>
