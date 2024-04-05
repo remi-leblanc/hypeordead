@@ -20,7 +20,7 @@
         "symfony/console": "*",
         "symfony/dotenv": "6.1.*",
         "symfony/expression-language": "*",
-        "symfony/flex": "v2.1.4",
+        "symfony/flex": "^2.1.4",
         "symfony/form": "*",
         "symfony/framework-bundle": "*",
         "symfony/google-mailer": "6.1.*",

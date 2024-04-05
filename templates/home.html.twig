@@ -9,20 +9,8 @@
 			<h3 class="text-lg font-light md:text-2xl !leading-loose md:pr-16 mb-8">Dynamically calculated using data from huge websites/services like Reddit, Discord and Twitch.</h3>
 			<div class="flex justify-center md:justify-start gap-x-2">
 				<a class="button-off bg-neutral-750 text-sm" href="mailto:remileblanc.dev@gmail.com"><i class="fa-solid fa-envelope"></i> Contact me</a>
-				<a class="button text-sm" target="_blank" href="https://ko-fi.com/remileblanc"><i class="fa-solid fa-circle-dollar-to-slot"></i> Donate</a>
+				{#<a class="button text-sm" target="_blank" href="https://ko-fi.com/remileblanc"><i class="fa-solid fa-circle-dollar-to-slot"></i> Donate</a>#}
 			</div>
-		</div>
-		<div class="relative overflow-hidden panel w-full p-0 cursor-pointer group" {{ stimulus_controller('video') }} data-action="click->video#toggleAudio">
-			<div class="absolute inset-0 flex flex-col justify-center items-center text-xl font-bold opacity-0 group-hover:opacity-100 p-8 z-10">
-				Click to turn on/off audio
-				<i class="fa-solid fa-volume-high"></i>
-			</div>
-			<video {{ stimulus_target('video', 'video') }}
-				width="360" height="640"
-				class="hidden md:block max-w-none group-hover:blur-2xl transition duration-100"
-				autoplay muted loop>
-				<source src="{{ asset('images/tiktok_sm.mp4') }}" type='video/mp4'>
-			</video>
 		</div>
 	</div>
 	<div class="relative flex md:gap-x-2" {{ stimulus_controller('ajax tag') }}>
